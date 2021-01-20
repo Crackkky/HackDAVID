@@ -1,6 +1,8 @@
 import httplib2
 from lxml import etree, html
 
+prettycat = True
+
 
 def hackHttp(cmd):
     h = httplib2.Http(".cache")
@@ -52,9 +54,12 @@ if __name__ == '__main__':
                 printls(content)
             elif reply.__contains__(".php"):
                 if reply.__contains__("cat"):
-                    try:
-                        printHTML(content)
-                    except Exception:
+                    if prettycat:
+                        try:
+                            printHTML(content)
+                        except Exception:
+                            print(content)
+                    else:
                         print(content)
             else:
                 prettyPrint(content)
